@@ -15,12 +15,16 @@ def imageposter():
         titles = ["change this"]  # you must change this to your desired title
         reddit.validate_on_submit = True
         text = ["change this"]  # you must change this to the text
+        flairtext = ["hello"]
         subreddit = reddit.subreddit(subreddits[n])
         try:
-            subreddit.submit(titles[0], text[0])
+            submission = subreddit.submit(title= titles[0], selftext = text[0])
+            choices = submission.flair.choices()
+            template_id = next(x for x in choices if x["flair_text_editable"])["flair_template_id"]
+            submission.flair.select(template_id, "hello")  # change the hello to change the flair of the post
 
-        except:
-            print('Error')
+        except Exception as e:
+            print(e)
             time.sleep(900)
             continue
         print(f'posted on r/{subreddit}')
