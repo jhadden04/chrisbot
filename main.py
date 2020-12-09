@@ -22,7 +22,7 @@ def imageposter():
             choices = submission.flair.choices()
             template_id = next(x for x in choices if x["flair_text_editable"])["flair_template_id"]
             submission.flair.select(template_id, "hello")  # change the hello to change the flair of the post
-
+            # if you don't want any flair, change template_id to None
         except Exception as e:
             print(e)
             time.sleep(900)
